@@ -3,13 +3,18 @@ var index = {};
 (function () {
     var fileElement = document.getElementById("file");
     fileElement.addEventListener('click', clearHistoryFileName)
-    fileElement.addEventListener('change', readFile);
+    fileElement.addEventListener('change', uploadFile);
+    fileElement.addEventListener('dragover', cancelDefaultEvent);
+    fileElement.addEventListener('drop', dnd);
     var tableName = document.querySelector('#tableName');
     tableName.addEventListener('input', inputTextBox);
 
-    function readFile(e) {
+    function uploadFile(e) {
         var data = e.target.files[0];
+        readFile(data);
+    }
 
+    function readFile(data) {
         var tableNameElement = document.querySelector('#tableName');
         if (tableNameElement.value == "") {
             alert('テーブル名を入力してください。');
@@ -78,5 +83,14 @@ var index = {};
      */
     function clearHistoryFileName() {
         this.value = null;
+    }
+
+    function cancelDefaultEvent(e) {
+        e.preventDefault();
+    }
+
+    function dnd(e) {
+        cancelDefaultEvent(e);
+        readFile(e.dataTransfer.files[0]);
     }
 }(index));
