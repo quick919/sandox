@@ -8,6 +8,8 @@ var index = {};
     fileElement.addEventListener('drop', dnd);
     var tableName = document.querySelector('#tableName');
     tableName.addEventListener('input', inputTextBox);
+    var clearElement = document.querySelector('#clear');
+    clearElement.addEventListener('click', clear);
 
     function uploadFile(e) {
         var data = e.target.files[0];
@@ -92,5 +94,18 @@ var index = {};
     function dnd(e) {
         cancelDefaultEvent(e);
         readFile(e.dataTransfer.files[0]);
+    }
+
+    function clear() {
+        if (!confirm("画面上の入力内容と出力内容を全て削除します。よろしいですか？")) return;
+        var fileElement = document.querySelector('#file');
+        var tableNameElement = document.querySelector('#tableName');
+        fileElement.value = null;
+        fileElement.disabled = true;
+        tableNameElement.value = null;
+        var insertSentenceElement = document.querySelector("#insertSentence");
+        while (insertSentenceElement.firstChild) {
+            insertSentenceElement.removeChild(insertSentenceElement.firstChild);
+        }
     }
 }(index));
