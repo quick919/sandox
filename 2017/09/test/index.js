@@ -1,18 +1,15 @@
 var index = {};
 
-(function(ns) {
-
-    (function() {
-        var fileElement = document.getElementById("file");
-        fileElement.addEventListener('click', clearHistoryFileName)
-        fileElement.addEventListener('change', readFile);
-        var tableName = document.querySelector('#tableName');
-        tableName.addEventListener('input', inputTextBox);
-    }());
+(function () {
+    var fileElement = document.getElementById("file");
+    fileElement.addEventListener('click', clearHistoryFileName)
+    fileElement.addEventListener('change', readFile);
+    var tableName = document.querySelector('#tableName');
+    tableName.addEventListener('input', inputTextBox);
 
     function readFile(e) {
         var data = e.target.files[0];
-        
+
         var tableNameElement = document.querySelector('#tableName');
         if (tableNameElement.value == "") {
             alert('テーブル名を入力してください。');
@@ -25,7 +22,7 @@ var index = {};
         }
 
         var reader = new FileReader();
-        reader.onload = function() {
+        reader.onload = function () {
             generateInsertSententce(reader.result);
         }
         reader.readAsText(data);
@@ -34,9 +31,9 @@ var index = {};
     function generateInsertSententce(file) {
         var lines = file.split('\n');
         var insertSentence = document.getElementById("insertSentence");
-        var tableName =  document.querySelector('#tableName').value;
+        var tableName = document.querySelector('#tableName').value;
         var columnNames = "";
-        lines.forEach(function(element, index) {
+        lines.forEach(function (element, index) {
             if (index == 0) {//１行目はカラム名の行を期待
                 columnNames = element.trim();
                 return;
@@ -46,21 +43,21 @@ var index = {};
 
             var text = insert(tableName, columnNames, insertValue);
             var li = document.createElement('li');
-            li.innerText =text;
+            li.innerText = text;
             insertSentence.appendChild(li);
         });
     }
 
     function insert(tableName, columnNames, insertValue) {
         var query = "insert into " +
-                    tableName +
-                    "(" +
-                    columnNames +
-                    ")" +
-                    " values " +
-                    "(" +
-                    insertValue +
-                    ");"
+            tableName +
+            "(" +
+            columnNames +
+            ")" +
+            " values " +
+            "(" +
+            insertValue +
+            ");"
         return query;
     }
 
@@ -79,7 +76,7 @@ var index = {};
      * inputイベントはchangイベントより先に発火する
      * @param {*} file 
      */
-    function clearHistoryFileName(file) {
+    function clearHistoryFileName() {
         this.value = null;
     }
 }(index));
