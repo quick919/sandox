@@ -9,9 +9,11 @@
 </head>
 
 <body>
-    <input id="file" type="file" accept="text/plain,text/csv" disabled>
-    <span>table name</span>
-    <input id="tableName" type="text">
+    <div class="container">
+        <span>table name</span>
+        <input id="tableName" class="flex_item" type="text" placeholder="テーブル名を入力してください。">
+        <input id="file" class="flex_item" type="file" accept="text/plain,text/csv" disabled>
+    </div>
     <ul id="insertSentence">
     </ul>
     <script src="./index.js"></script>
