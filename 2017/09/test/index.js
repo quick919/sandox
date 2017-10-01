@@ -40,6 +40,7 @@ var index = {};
         var insertSentence = document.getElementById("insertSentence");
         var tableName = document.querySelector('#tableName').value;
         var columnNames = "";
+        var textArray = [];
         lines.forEach(function (element, index) {
             if (index == 0) {//１行目はカラム名の行を期待
                 columnNames = element.trim();
@@ -49,10 +50,18 @@ var index = {};
             if (insertValue == "") return;
 
             var text = insert(tableName, columnNames, insertValue);
+            textArray.push(text);
             var li = document.createElement('li');
             li.innerText = text;
             insertSentence.appendChild(li);
         });
+        var button = document.createElement('input');
+        button.type = "button"
+        button.value = "Conpy to Clipboard";
+        button.onclick = function () {
+            copyToClipboard(textArray);
+        }
+        insertSentence.appendChild(button);
     }
 
     function insert(tableName, columnNames, insertValue) {
@@ -107,5 +116,14 @@ var index = {};
         while (insertSentenceElement.firstChild) {
             insertSentenceElement.removeChild(insertSentenceElement.firstChild);
         }
+    }
+
+    function copyToClipboard(targetValue) {
+        var textarea = document.createElement("textarea");
+        textarea.value = targetValue.join('\n');
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.parentNode.removeChild(textarea);
     }
 }(index));
