@@ -8,9 +8,39 @@
 
 <body>
     <h1>Hello,Wolrd</h1>
-    <script>document.write(process.versions.node)</script>, Chrome
-    <script>document.write(process.versions.chrome)</script>, and Electron
-    <script>document.write(process.versions.electron)</script>.
+    <label>newTask</label>
+    <input id="newTask" type="text">
+    <select name="fibonacciNumber">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="8">8</option>
+        <option value="13">13</option>
+        <option value="21">21</option>
+        <option value="34">34</option>
+        <option value="55">55</option>
+    </select>
+    <input type="button" value="add New Task">
+    <label>fetchRedminTask</label>
+    <input id="fetchRedmineTask" type="text" placeholder="Please, API key.">
+    <input type="button" value="fetch Redmine Task">
+    <div id="taskArea">
+        <ul>
+            <li>
+                <label>fibonacciNumber</label>
+                <label>8</label>
+                <p>task1</p>
+            </li>
+            <li>
+                <label>fibonacciNumber</label>
+                <label>55</label>
+                <p>task2</p>
+            </li>
+        </ul>
+    </div>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
