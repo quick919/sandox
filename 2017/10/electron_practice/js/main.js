@@ -17,6 +17,11 @@ var main = {};
     var ul = document.createElement("ul");
     var changedUl = createtTaskElement(ul, newTaskText, fibonacciValue);
     var taskArea = document.querySelector("#taskArea");
+    var obj = {
+      fibonacci: fibonacciValue,
+      task: newTaskText
+    };
+    DbOperation.insert(obj);
     taskArea.appendChild(changedUl);
   }
 
