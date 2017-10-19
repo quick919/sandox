@@ -3,6 +3,23 @@ var main = {};
 (function() {
   var addTaskElement = document.querySelector("#addNewTask");
   addTaskElement.addEventListener("click", addTask);
+  inittialize();
+
+  function inittialize() {
+    setTimeout(fetchInitialData, 100);
+  }
+
+  function fetchInitialData() {
+    var objects = DbOperation.fetchInitialData();
+    if (objects.length == 0) return;
+
+    var ul = document.createElement("ul");
+    objects.forEach(function(obj) {
+      createtTaskElement(ul, obj.task, obj.fibonacci);
+    });
+    var taskArea = document.querySelector("#taskArea");
+    taskArea.appendChild(ul);
+  }
 
   function addTask() {
     var newTaskTextElement = document.querySelector("#newTaskText");
