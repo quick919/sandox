@@ -3,6 +3,7 @@ var DbOperation = {};
 (function(ns) {
   ns.insert = insert;
   ns.fetchInitialData = fetchInitialData;
+  ns.deleteObj = deleteObj;
   ns.objects = "";
 
   var Datastore = require("nedb");
@@ -25,5 +26,9 @@ var DbOperation = {};
   function fetchInitialData() {
     setTimeout(function() {}, 1000);
     return DbOperation.objects;
+  }
+
+  function deleteObj(objId) {
+    db.remove({ id: objId }, {}, function(err, numRemoved) {});
   }
 })(DbOperation);
