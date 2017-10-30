@@ -1,0 +1,18 @@
+.line {
+  margin: 5px;
+}
+
+.box {
+  display: flex;
+}
+
+.fibo-label {
+  padding-right: 10px;
+}
+.task-label {
+  padding-right: 67px;
+}
+
+ul {
+  list-style: none;
+}

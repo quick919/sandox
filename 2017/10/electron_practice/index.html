@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://unpkg.com/vue"></script>
     <title>Hello World!</title>
 </head>
 
@@ -22,14 +24,30 @@
         <option value="34">34</option>
         <option value="55">55</option>
     </select>
-    <input id="addNewTask" type="button" value="add New Task">
-    <label>fetchRedminTask</label>
-    <input id="fetchRedmineTask" type="text" placeholder="Please, API key.">
-    <input type="button" value="fetch Redmine Task">
     <div id="taskArea">
+        <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
+        <label>fetchRedminTask</label>
+        <input id="fetchRedmineTask" type="text" placeholder="Please, API key.">
+        <input type="button" value="fetch Redmine Task">
+
+        <ul>
+            <li v-for="item in list">
+                <div class="line">
+                    <div class="box">
+                        <span class="fibo-label">fibonacciNumber</span>{{item.fibonacci}}
+                    </div>
+                    <div class="box">
+                        <span class="task-label">taskTitle</span>{{item.task}}
+                    </div>
+                    <input :id="item.id" type="button" value="delete ">
+                </div>
+            </li>
+        </ul>
     </div>
-    <script src="./js/DbOpeartion.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/DbOpeartion.js "></script>
+    <script src="./build/bundle.js "></script>
+    <script src="./js/main.js "></script>
+
 </body>
 
 </html>
