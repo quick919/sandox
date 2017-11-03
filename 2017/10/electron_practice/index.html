@@ -39,7 +39,7 @@
                     <div class="box">
                         <span class="task-label">taskTitle</span>{{item.task}}
                     </div>
-                    <input :id="item.id" type="button" value="delete ">
+                    <input v-on:click="deleteTask(item)" :id="item.id" type="button" value="delete">
                 </div>
             </li>
         </ul>

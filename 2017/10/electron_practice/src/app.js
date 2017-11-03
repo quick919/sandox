@@ -9,7 +9,9 @@ var app = {};
 
   function fetchInitialData() {
     var objects = DbOperation.fetchInitialData();
-    if (objects.length == 0) return;
+    if (objects.length == 0) {
+      objects = [];
+    }
 
     app2 = new Vue({
       el: "#taskArea",
@@ -20,6 +22,11 @@ var app = {};
         addTask: function(e) {
           var obj = _addTask();
           this.list.push(obj);
+        },
+        deleteTask: function(item) {
+          _deleteTask(item.id);
+          var index = this.list.indexOf(item);
+          this.list.splice(index, 1);
         }
       }
     });
@@ -43,5 +50,9 @@ var app = {};
     };
     DbOperation.insert(obj);
     return obj;
+  }
+
+  function _deleteTask(id) {
+    DbOperation.deleteObj(id);
   }
 })(app);
