@@ -15,8 +15,10 @@ var app = {};
 
     app2 = new Vue({
       el: "#taskArea",
-      data: {
-        list: objects
+      data: function() {
+        return {
+          list: objects
+        };
       },
       methods: {
         addTask: function(e) {
@@ -27,6 +29,9 @@ var app = {};
           _deleteTask(item.id);
           var index = this.list.indexOf(item);
           this.list.splice(index, 1);
+        },
+        editTask: function(item) {
+          _editTask(item.id, item.task);
         }
       }
     });
@@ -46,7 +51,8 @@ var app = {};
     var obj = {
       id: id,
       fibonacci: fibonacciValue,
-      task: newTaskText
+      task: newTaskText,
+      edit: false
     };
     DbOperation.insert(obj);
     return obj;
@@ -54,5 +60,9 @@ var app = {};
 
   function _deleteTask(id) {
     DbOperation.deleteObj(id);
+  }
+
+  function _editTask(id, task) {
+    DbOperation.editTask(id, task);
   }
 })(app);

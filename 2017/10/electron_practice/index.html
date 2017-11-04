@@ -37,7 +37,9 @@
                         <span class="fibo-label">fibonacciNumber</span>{{item.fibonacci}}
                     </div>
                     <div class="box">
-                        <span class="task-label">taskTitle</span>{{item.task}}
+                        <span class="task-label">taskTitle</span>
+                        <span v-if="!item.edit" v-text="item.task" v-on:click="item.edit = true">{{item.task}}</span>
+                        <input v-if="item.edit" v-model="item.task" type="text" v-on:blur="item.edit = false, editTask(item)">
                     </div>
                     <input v-on:click="deleteTask(item)" :id="item.id" type="button" value="delete">
                 </div>
