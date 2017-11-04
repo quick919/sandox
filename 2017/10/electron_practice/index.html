@@ -34,7 +34,20 @@
             <li v-for="item in list">
                 <div class="line">
                     <div class="box">
-                        <span class="fibo-label">fibonacciNumber</span>{{item.fibonacci}}
+                        <span class="fibo-label">fibonacciNumber</span>
+                        <span v-if="!item.editfibonacci" v-text="item.fibonacci" v-on:click="item.editfibonacci = true">{{item.fibonacci}}</span>
+                        <select v-if="item.editfibonacci" v-model="item.fibonacci" v-on:blur="item.editfibonacci = false, editFibonacci(item)">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="8">8</option>
+                            <option value="13">13</option>
+                            <option value="21">21</option>
+                            <option value="34">34</option>
+                            <option value="55">55</option>
+                        </select>
                     </div>
                     <div class="box">
                         <span class="task-label">taskTitle</span>

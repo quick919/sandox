@@ -32,6 +32,9 @@ var app = {};
         },
         editTask: function(item) {
           _editTask(item.id, item.task);
+        },
+        editFibonacci: function(item) {
+          _editFibonacci(item.id, item.fibonacci);
         }
       }
     });
@@ -52,7 +55,8 @@ var app = {};
       id: id,
       fibonacci: fibonacciValue,
       task: newTaskText,
-      edit: false
+      edit: false,
+      editfibonacci: false
     };
     DbOperation.insert(obj);
     return obj;
@@ -64,5 +68,9 @@ var app = {};
 
   function _editTask(id, task) {
     DbOperation.editTask(id, task);
+  }
+
+  function _editFibonacci(id, fibonacci) {
+    DbOperation.editFibonacci(id, fibonacci);
   }
 })(app);
