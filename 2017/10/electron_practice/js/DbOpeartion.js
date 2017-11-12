@@ -6,6 +6,7 @@ var DbOperation = {};
   ns.deleteObj = deleteObj;
   ns.editTask = editTask;
   ns.editFibonacci = editFibonacci;
+  ns.doneTask = doneTask;
   ns.objects = "";
 
   var Datastore = require("nedb");
@@ -40,5 +41,9 @@ var DbOperation = {};
 
   function editFibonacci(objId, fibonacci) {
     db.update({ id: objId }, { $set: { fibonacci: fibonacci } });
+  }
+
+  function doneTask(objId) {
+    db.update({ id: objId }, { $set: { done: true } });
   }
 })(DbOperation);

@@ -27,14 +27,17 @@ var app = {};
         },
         deleteTask: function(item) {
           _deleteTask(item.id);
-          var index = this.list.indexOf(item);
-          this.list.splice(index, 1);
+          _hideDisplay(this.list, item);
         },
         editTask: function(item) {
           _editTask(item.id, item.task);
         },
         editFibonacci: function(item) {
           _editFibonacci(item.id, item.fibonacci);
+        },
+        doneTask: function(item) {
+          _doneTask(item.id);
+          _hideDisplay(this.list, item);
         }
       }
     });
@@ -56,7 +59,8 @@ var app = {};
       fibonacci: fibonacciValue,
       task: newTaskText,
       edit: false,
-      editfibonacci: false
+      editfibonacci: false,
+      done: false
     };
     DbOperation.insert(obj);
     return obj;
@@ -72,5 +76,14 @@ var app = {};
 
   function _editFibonacci(id, fibonacci) {
     DbOperation.editFibonacci(id, fibonacci);
+  }
+
+  function _doneTask(id) {
+    DbOperation.doneTask(id);
+  }
+
+  function _hideDisplay(list, item) {
+    var index = list.indexOf(item);
+    list.splice(index, 1);
   }
 })(app);

@@ -31,7 +31,7 @@
         <input type="button" value="fetch Redmine Task">
 
         <ul>
-            <li v-for="item in list">
+            <li v-for="item in list" v-if="!item.done">
                 <div class="line">
                     <div class="box">
                         <span class="fibo-label">fibonacciNumber</span>
@@ -54,7 +54,8 @@
                         <span v-if="!item.edit" v-text="item.task" v-on:click="item.edit = true">{{item.task}}</span>
                         <input v-if="item.edit" v-model="item.task" type="text" v-on:blur="item.edit = false, editTask(item)">
                     </div>
-                    <input v-on:click="deleteTask(item)" :id="item.id" type="button" value="delete">
+                    <input v-on:click="doneTask(item)" type="button" value="done">
+                    <input v-on:click="deleteTask(item)" type="button" value="delete">
                 </div>
             </li>
         </ul>
