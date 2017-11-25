@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.19.2",
     "nedb": "^1.8.0",
     "shortid": "^2.2.8",
     "vue": "^2.5.2"

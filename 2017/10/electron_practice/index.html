@@ -9,27 +9,28 @@
 </head>
 
 <body>
-    <h1>Hello,Wolrd</h1>
-    <label>newTask</label>
-    <input id="newTaskText" type="text">
-    <select id="fibonacciNumber" name="fibonacciNumber">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="5">5</option>
-        <option value="8">8</option>
-        <option value="13">13</option>
-        <option value="21">21</option>
-        <option value="34">34</option>
-        <option value="55">55</option>
-    </select>
     <div id="taskArea">
+        <h1>Hello,Wolrd</h1>
+        <label>newTask</label>
+        <input id="newTaskText" type="text">
+        <select id="fibonacciNumber" name="fibonacciNumber">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="13">13</option>
+            <option value="21">21</option>
+            <option value="34">34</option>
+            <option value="55">55</option>
+        </select>
         <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
         <label>fetchRedminTask</label>
         <input id="fetchRedmineTask" type="text" placeholder="Please, API key.">
         <input type="button" value="fetch Redmine Task">
 
+        <h4>Total number of Fibonacci this week：{{totalFibonacci}}</h4>
         <ul>
             <li v-for="item in list" v-if="!item.done">
                 <div class="line">

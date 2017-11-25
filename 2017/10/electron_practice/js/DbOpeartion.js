@@ -43,7 +43,7 @@ var DbOperation = {};
     db.update({ id: objId }, { $set: { fibonacci: fibonacci } });
   }
 
-  function doneTask(objId) {
-    db.update({ id: objId }, { $set: { done: true } });
+  function doneTask(objId, weeks) {
+    db.update({ id: objId }, { $set: { done: true, doneWeeks: weeks } });
   }
 })(DbOperation);

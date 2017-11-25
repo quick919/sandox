@@ -1,6 +1,7 @@
 var app = {};
 (function(ns) {
   const shortId = require("shortid");
+  const moment = require("moment");
   inittialize();
 
   function inittialize() {
@@ -13,11 +14,23 @@ var app = {};
       objects = [];
     }
 
+    var totalFibonacci = 0;
+    objects.forEach(obj => {
+      if (typeof obj.doneWeeks === "undefined") {
+        return;
+      }
+
+      if (moment().weeks() === obj.doneWeeks) {
+        totalFibonacci += Number(obj.fibonacci);
+      }
+    });
+
     app2 = new Vue({
       el: "#taskArea",
       data: function() {
         return {
-          list: objects
+          list: objects,
+          totalFibonacci: totalFibonacci
         };
       },
       methods: {
@@ -37,6 +50,7 @@ var app = {};
         },
         doneTask: function(item) {
           _doneTask(item.id);
+          this.totalFibonacci += Number(item.fibonacci);
           _hideDisplay(this.list, item);
         }
       }
@@ -79,7 +93,7 @@ var app = {};
   }
 
   function _doneTask(id) {
-    DbOperation.doneTask(id);
+    DbOperation.doneTask(id, moment().weeks());
   }
 
   function _hideDisplay(list, item) {
