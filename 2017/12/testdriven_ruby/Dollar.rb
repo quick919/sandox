@@ -8,10 +8,6 @@ class Dollar
     return Dollar.new(@amount * multiplier)
   end
 
-  def equal?(dollar)
-    return @amount == dollar.amount
-  end
-
   def ==(other)
     @amount == other.amount
   end
