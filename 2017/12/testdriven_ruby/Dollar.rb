@@ -11,4 +11,8 @@ class Dollar
   def equal?(dollar)
     return @amount == dollar.amount
   end
+
+  def ==(other)
+    @amount == other.amount
+  end
 end
