@@ -8,7 +8,7 @@ class Dollar
     return Dollar.new(@amount * multiplier)
   end
 
-  def ==(other)
-    @amount == other.amount
+  def ==(other_franc)
+    @amount == other_franc.amount
   end
 end
