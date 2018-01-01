@@ -1,4 +1,6 @@
-class Money
+require_relative './ExpressionInterface'
+
+class Money < ExpressionInterface
   attr_accessor :amount, :currency
   def initialize(amount, currency)
     @amount = amount
@@ -23,5 +25,9 @@ class Money
 
   def currency
     return @currency
+  end
+
+  def plus(addend)
+    return Money.new(@amount + addend.amount, @currency)
   end
 end
