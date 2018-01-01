@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://unpkg.com/vue"></script>
+    <title>Hello World!</title>
+</head>
+
+<body>
+    <div id="taskArea">
+        <input id="newTaskText" type="text">
+        <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
+
+        <ul>
+            <li v-for="item in list">
+                <div class="line">
+                    <div class="box">
+                        <input type="checkbox" v-on:click="item.done = !item.done, doneTask(item)" :checked="item.done">
+                        <span v-if="!item.edit" v-text="item.task" v-on:click="item.edit = true" v-bind:class="{done: item.done}">{{item.task}}</span>
+                        <input v-if="item.edit" v-model="item.task" type="text " v-on:blur="item.edit = false, editTask(item) ">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script src="./js/DbOpeartion.js "></script>
+    <script src="./build/bundle.js "></script>
+    <script src="./js/main.js "></script>
+
+</body>
+
+</html>
