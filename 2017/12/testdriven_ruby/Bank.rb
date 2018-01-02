@@ -1,6 +1,5 @@
 class Bank
   def reduce(source, to)
-    sum = source
-    return sum.reduce(to)
+    return source.reduce(to)
   end
 end
