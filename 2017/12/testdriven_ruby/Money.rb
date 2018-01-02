@@ -1,4 +1,5 @@
 require_relative './ExpressionInterface'
+require_relative './Sum'
 
 class Money < ExpressionInterface
   attr_accessor :amount, :currency
@@ -28,6 +29,10 @@ class Money < ExpressionInterface
   end
 
   def plus(addend)
-    return Money.new(@amount + addend.amount, @currency)
+    return Sum.new(self, addend)
+  end
+
+  def reduce(to)
+    return self
   end
 end
