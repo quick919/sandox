@@ -10,7 +10,7 @@
 
 <body>
     <div id="taskArea">
-        <input id="newTaskText" type="text">
+        <input id="newTaskText" v-model="newTask" type="text">
         <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
 
         <ul>

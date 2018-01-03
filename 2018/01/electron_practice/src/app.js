@@ -18,13 +18,15 @@ var app = {};
       el: "#taskArea",
       data: function() {
         return {
-          list: objects
+          list: objects,
+          newTask: ""
         };
       },
       methods: {
-        addTask: function(e) {
-          var obj = _addTask();
+        addTask: function() {
+          var obj = _addTask(this.newTask);
           this.list.push(obj);
+          this.newTask = "";
         },
         deleteTask: function(item) {
           _deleteTask(item.id);
@@ -41,9 +43,7 @@ var app = {};
     });
   }
 
-  function _addTask() {
-    var newTaskTextElement = document.querySelector("#newTaskText");
-    var newTaskText = newTaskTextElement.value;
+  function _addTask(newTaskText) {
     if (newTaskText == "") {
       alert("task is empty!");
       return;
