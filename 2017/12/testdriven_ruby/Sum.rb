@@ -9,7 +9,11 @@ class Sum < ExpressionInterface
   end
 
   def reduce(bank,to)
-    amount = @augend.amount + @addend.amount
+    amount = @augend.reduce(bank, to).amount + @addend.reduce(bank, to).amount
     return Money.new(amount, to)
+  end
+
+  def plus(addend)
+    return nil
   end
 end
