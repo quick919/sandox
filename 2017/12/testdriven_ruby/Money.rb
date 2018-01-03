@@ -32,7 +32,8 @@ class Money < ExpressionInterface
     return Sum.new(self, addend)
   end
 
-  def reduce(to)
-    return self
+  def reduce(bank,to)
+    rate = bank.rate(@currency, to)
+    return Money.new(@amount / rate, to)
   end
 end

@@ -8,7 +8,7 @@ class Sum < ExpressionInterface
     @addend = addend
   end
 
-  def reduce(to)
+  def reduce(bank,to)
     amount = @augend.amount + @addend.amount
     return Money.new(amount, to)
   end
