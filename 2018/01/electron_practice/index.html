@@ -12,6 +12,8 @@
     <div id="taskArea">
         <input id="newTaskText" v-model="newTask" v-on:keydown.enter="addTask" type="text">
         <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
+        <input v-on:click="deleteTask" id="deleteTask" type="button" value="delete Task">
+
 
         <ul>
             <li v-for="item in list">

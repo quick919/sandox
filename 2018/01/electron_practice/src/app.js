@@ -28,16 +28,28 @@ var app = {};
           this.list.push(obj);
           this.newTask = "";
         },
-        deleteTask: function(item) {
-          _deleteTask(item.id);
-          _hideDisplay(this.list, item);
+        deleteTask: function() {
+          if (!confirm("delete checked tasks?")) {
+            return;
+          }
+
+          const workObj = [];
+          this.list.forEach(obj => {
+            if (obj.done == false) {
+              return;
+            }
+            workObj.push(obj);
+          });
+          workObj.forEach(obj => {
+            _deleteTask(obj.id);
+            _hideDisplay(this.list, obj);
+          });
         },
         editTask: function(item) {
           _editTask(item.id, item.task);
         },
         doneTask: function(item) {
           _doneTask(item);
-          //_hideDisplay(this.list, item);
         }
       }
     });
