@@ -14,6 +14,10 @@ class Sum < ExpressionInterface
   end
 
   def plus(addend)
-    return nil
+    return Sum.new(self, addend)
+  end
+
+  def times(multiplier)
+    return Sum.new(augend.times(multiplier), addend.times(multiplier))
   end
 end
