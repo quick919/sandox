@@ -14,3 +14,7 @@ ul {
   opacity: 0.7;
   color: darkgray;
 }
+
+[v-cloak] {
+  display: none;
+}

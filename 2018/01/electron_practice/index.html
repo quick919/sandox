@@ -18,7 +18,7 @@
         <ul>
             <li v-for="item in list">
                 <div class="line">
-                    <div class="box">
+                    <div class="box" v-cloak>
                         <input type="checkbox" v-on:click="item.done = !item.done, doneTask(item)" :checked="item.done">
                         <span v-if="!item.edit" v-text="item.task" v-on:click="item.edit = true" v-bind:class="{done: item.done}">{{item.task}}</span>
                         <input v-if="item.edit" v-model="item.task" type="text " v-on:blur="item.edit = false, editTask(item) " size="30">
