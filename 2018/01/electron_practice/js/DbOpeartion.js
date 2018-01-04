@@ -10,7 +10,7 @@ var DbOperation = {};
 
   var Datastore = require("nedb");
   var db = new Datastore({
-    filename: "./db/test.db",
+    filename: "./db/mytodo.db",
     autoload: true
   });
   initialize();
