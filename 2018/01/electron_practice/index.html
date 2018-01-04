@@ -10,8 +10,8 @@
 
 <body>
     <div id="taskArea">
-        <input id="newTaskText" v-model="newTask" v-on:keydown.enter="addTask" type="text">
-        <input v-on:click="addTask" id="addNewTask" type="button" value="add New Task">
+        <input id="newTaskText" v-model="newTask" v-on:keydown.enter="addTask" type="text" size="30">
+        <input v-on:click="addTask" id="addNewTask" type="button" value="add Task">
         <input v-on:click="deleteTask" id="deleteTask" type="button" value="delete Task">
 
 
@@ -21,7 +21,7 @@
                     <div class="box">
                         <input type="checkbox" v-on:click="item.done = !item.done, doneTask(item)" :checked="item.done">
                         <span v-if="!item.edit" v-text="item.task" v-on:click="item.edit = true" v-bind:class="{done: item.done}">{{item.task}}</span>
-                        <input v-if="item.edit" v-model="item.task" type="text " v-on:blur="item.edit = false, editTask(item) ">
+                        <input v-if="item.edit" v-model="item.task" type="text " v-on:blur="item.edit = false, editTask(item) " size="30">
                     </div>
                 </div>
             </li>
