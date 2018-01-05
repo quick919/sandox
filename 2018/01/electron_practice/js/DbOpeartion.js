@@ -6,6 +6,7 @@ var DbOperation = {};
   ns.deleteObj = deleteObj;
   ns.editTask = editTask;
   ns.doneTask = doneTask;
+  ns.initialize = initialize;
   ns.objects = "";
 
   var Datastore = require("nedb");
@@ -13,11 +14,13 @@ var DbOperation = {};
     filename: "./db/mytodo.db",
     autoload: true
   });
-  initialize();
 
   function initialize() {
-    db.find({}, function(err, docs) {
-      ns.objects = docs;
+    return new Promise((resolve, reject) => {
+      db.find({}, function(err, docs) {
+        ns.objects = docs;
+        resolve(ns.objects);
+      });
     });
   }
 

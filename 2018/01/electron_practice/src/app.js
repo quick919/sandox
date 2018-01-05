@@ -1,19 +1,8 @@
 var app = {};
 (function(ns) {
   const shortId = require("shortid");
-  const moment = require("moment");
-  inittialize();
 
-  function inittialize() {
-    setTimeout(fetchInitialData, 500);
-  }
-
-  function fetchInitialData() {
-    var objects = DbOperation.fetchInitialData();
-    if (objects.length == 0) {
-      objects = [];
-    }
-
+  DbOperation.initialize().then(objects => {
     app2 = new Vue({
       el: "#taskArea",
       data: function() {
@@ -53,7 +42,7 @@ var app = {};
         }
       }
     });
-  }
+  });
 
   function _addTask(newTaskText) {
     if (newTaskText == "") {
