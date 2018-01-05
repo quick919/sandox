@@ -14,4 +14,10 @@ class MyAppTest < Minitest::Test
     assert last_response.ok?
     assert_equal 'Hello,World!', last_response.body
   end
+
+  def test_index
+    get '/index'
+    assert last_response.ok?
+    assert_equal '<h1>index</h1>', last_response.body
+  end
 end
