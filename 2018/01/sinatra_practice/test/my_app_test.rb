@@ -12,12 +12,10 @@ class MyAppTest < Minitest::Test
   def test_my_default
     get '/'
     assert last_response.ok?
-    assert_equal 'Hello,World!', last_response.body
   end
 
-  def test_index
-    get '/index'
-    assert last_response.ok?
-    assert_equal '<h1>index</h1>', last_response.body
+  def test_form
+    post '/form', {form: 'testあいう嗚呼'}
+    assert_equal '"testあいう嗚呼"', last_response.body
   end
 end

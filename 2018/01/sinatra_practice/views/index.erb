@@ -1,1 +1,34 @@
-<h1>index</h1>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<form method="POST" action="">
+<textarea id="textarea" name="form">
+</textarea>
+<input id="submit" type="submit" value="submit">
+</form>
+
+<div id="result">
+  <% @arr.each do |item| %>
+    <p><%= item %></p>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $('form').submit(function(e) {
+    e.preventDefault();
+    var requrest = $.ajax({
+      type: "POST",
+      url: "/form",
+      dataType: "json",
+      data: { form: $('#textarea').val() }
+    });
+    
+    requrest.done(function(data) {
+      $('#result').append('<p>'+ data +'</p>');
+      $('#textarea').val('');
+    }).fail(function(e) {
+      console.log('error');
+    });
+  });
+});
+</script>
