@@ -8,7 +8,7 @@
 
 <div id="result">
   <% @arr.each do |item| %>
-    <p><%= item %></p>
+    <p><%= item[:text] %><%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %></p>
   <% end %>
 </div>
 
@@ -24,7 +24,7 @@ $(function() {
     });
     
     requrest.done(function(data) {
-      $('#result').append('<p>'+ data +'</p>');
+      $('#result').append('<p>'+ data.text + " " + data.create_date +'</p>');
       $('#textarea').val('');
     }).fail(function(e) {
       console.log('error');

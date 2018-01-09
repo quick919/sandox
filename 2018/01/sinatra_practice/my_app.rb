@@ -9,24 +9,21 @@ configure do
     DB.create_table :items do
       primary_key :id
       String :text
-      Date :create_date
+      DateTime :create_date
      end
   end
 
   set :items, DB[:items]
 end
 
-arr = []
 get '/' do
-  #puts settings.items
-  @arr = arr
+  @arr = settings.items.order(:create_date).all
   erb :index
 end
 
 post '/form' do
-  data = params[:form]
-  arr.push(data)
-  @arr = arr
+  data = {text: params[:form], create_date: Time.now}
+  settings.items.insert(data)
   content_type :json
   @data = data.to_json
 end
