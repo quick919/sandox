@@ -2,12 +2,13 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'sequel'
+require 'securerandom'
 
 configure do
   DB = Sequel.sqlite('databasepath',{})
   unless DB.table_exists?(:items)  
     DB.create_table :items do
-      primary_key :id
+      unrestrict_primary_key :id
       String :text
       DateTime :create_date
      end
@@ -22,8 +23,15 @@ get '/' do
 end
 
 post '/form' do
-  data = {text: params[:form], create_date: Time.now}
+  data = {id: SecureRandom.uuid, text: params[:form], create_date: Time.now}
   settings.items.insert(data)
   content_type :json
   @data = data.to_json
+end
+
+post '/item/delete' do
+  id = params[:id]
+  settings.items.where({id: id}).delete
+  status 200
+  data = settings.items.order(:create_date).all.to_json
 end
