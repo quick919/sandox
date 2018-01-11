@@ -7,12 +7,7 @@
 </form>
 
 <div id="result">
-  <% @arr.each do |item| %>
-    <p>
-      <%= item[:text] %><%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
-      <input type="button" value="delete" onClick="deleteItem('<%= item[:id] %>')">
-    </p>
-  <% end %>
+  <%= erb :article %>
 </div>
 
 <script type="text/javascript">
@@ -39,12 +34,12 @@ function deleteItem(id) {
   var requrest = $.ajax({
       type: "POST",
       url: "/item/delete",
-      dataType: "json",
+      dataType: "text",
       data: { id: id }
     });
     
     requrest.done(function(data) {
-      console.log(data);
+      jQuery('#result').html(data);
     }).fail(function(e) {
       console.log('error');
     });

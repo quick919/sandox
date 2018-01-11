@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'json'
 require 'sequel'
 require 'securerandom'
+require 'erb'
 
 configure do
   DB = Sequel.sqlite('databasepath',{})
@@ -33,5 +34,10 @@ post '/item/delete' do
   id = params[:id]
   settings.items.where({id: id}).delete
   status 200
-  data = settings.items.order(:create_date).all.to_json
+  arr = settings.items.order(:create_date).all
+  file_data = nil
+  File.open('views/article.erb') do |file|
+    file_data = file.read
+  end
+  ERB.new(file_data).result(binding)
 end
