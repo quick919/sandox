@@ -1,6 +1,11 @@
 <% @arr.each do |item| %>
-  <p>
-    <%= item[:text] %><%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
-    <input type="button" value="delete" onClick="deleteItem('<%= item[:id] %>')">
-  </p>
+  <article>
+    <header>
+      <p>
+        <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
+        <input type="button" value="delete" onClick="deleteItem('<%= item[:id] %>')">
+      </p>
+    </header>
+    <p><%= item[:text] %></p>  
+  </article>
 <% end %>
