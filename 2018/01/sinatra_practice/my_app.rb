@@ -35,6 +35,7 @@ post '/item/delete' do
   settings.items.where({id: id}).delete
   status 200
   arr = settings.items.order(:create_date).all
+  @arr = arr
   file_data = nil
   File.open('views/article.erb') do |file|
     file_data = file.read
