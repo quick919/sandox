@@ -26,8 +26,13 @@ end
 post '/form' do
   data = {id: SecureRandom.uuid, text: params[:form], create_date: Time.now}
   settings.items.insert(data)
-  content_type :json
-  @data = data.to_json
+  arr = settings.items.order(:create_date).all
+  @arr = arr
+  file_data = nil
+  File.open('views/article.erb') do |file|
+    file_data = file.read
+  end
+  ERB.new(file_data).result(binding)
 end
 
 post '/item/delete' do

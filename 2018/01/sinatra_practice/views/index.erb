@@ -17,12 +17,12 @@ $(function() {
     var requrest = $.ajax({
       type: "POST",
       url: "/form",
-      dataType: "json",
+      dataType: "text",
       data: { form: $('#textarea').val() }
     });
     
     requrest.done(function(data) {
-      $('#result').append('<p>'+ data.text + " " + data.create_date +'</p>');
+      jQuery('#result').html(data);
       $('#textarea').val('');
     }).fail(function(e) {
       console.log('error');
