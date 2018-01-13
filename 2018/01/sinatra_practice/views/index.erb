@@ -47,7 +47,24 @@ function deleteItem(id) {
 }
 function editItem(id, text) {
   showModel();
-  $('#editText').val(text)
+  $('#editBtn').on('click', function() {
+    var requrest = $.ajax({
+      type: "POST",
+      url: "/item/edit",
+      dataType: "text",
+      data: { id: id, text: $('#editText').val() }
+    });
+    
+    requrest.done(function(data) {
+      jQuery('#result').html(data);
+      $("#modal,#modalOverlay").fadeOut("slow",function(){
+          $('#modalOverlay').remove() ;
+      });
+    }).fail(function(e) {
+      console.log('error');
+    });
+    $('#textarea').val('');
+  });
 }
 
 function showModel() {

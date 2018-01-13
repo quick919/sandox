@@ -47,3 +47,17 @@ post '/item/delete' do
   end
   ERB.new(file_data).result(binding)
 end
+
+post '/item/edit' do
+  id = params[:id]
+  text = params[:text]
+  settings.items.where({id: id}).update({text: text})
+  status 200
+  arr = settings.items.order(:create_date).all
+  @arr = arr
+  file_data = nil
+  File.open('views/article.erb') do |file|
+    file_data = file.read
+  end
+  ERB.new(file_data).result(binding)
+end

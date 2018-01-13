@@ -3,7 +3,7 @@
     <header>
       <p>
         <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
-        <input type="button" value="edit" onClick="editItem('<%= item[:id] %>', '<%= item[:text] %>')">
+        <input type="button" value="edit" onClick="editItem('<%= item[:id] %>')">
         <input type="button" value="delete" onClick="deleteItem('<%= item[:id] %>')">
       </p>
     </header>
@@ -14,7 +14,7 @@
 <div id="modal" class="modal">
   <div id="modalContent" class="modal_content">
 <textarea id="editText"></textarea>
-    <input type="button" value="ok">
-    <input type="button" value="cancel">
+    <input id="editBtn" type="button" value="ok">
+    <input id="cancelBtn" type="button" value="cancel">
   </div>
 </div>
