@@ -17,7 +17,7 @@ $(function() {
     e.preventDefault();
     var requrest = $.ajax({
       type: "POST",
-      url: "/form",
+      url: "/item/create",
       dataType: "text",
       data: { form: $('#textarea').val() }
     });

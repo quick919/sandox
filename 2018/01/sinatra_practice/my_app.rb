@@ -33,7 +33,7 @@ get '/' do
   erb :index
 end
 
-post '/form' do
+post '/item/create' do
   data = {id: SecureRandom.uuid, text: params[:form], create_date: Time.now}
   settings.items.insert(data)
   arr = settings.items.order(:create_date).all
