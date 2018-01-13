@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/index.css" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <form method="POST" action="">
@@ -43,5 +44,30 @@ function deleteItem(id) {
     }).fail(function(e) {
       console.log('error');
     });
+}
+function editItem(id, text) {
+  showModel();
+  $('#editText').val(text)
+}
+
+function showModel() {
+  $('body').append('<div id="modalOverlay" class="modal_overlay"></div>');
+  modalResize();
+ 
+  $("#modalOverlay,#modal").fadeIn("slow");
+  
+  $(window).resize(modalResize);
+  function modalResize(){
+    var w = $(window).width();
+    var h = $(window).height();
+
+    var cw = $("#modal").outerWidth();
+    var ch = $("#modal").outerHeight();
+
+    $("#modal").css({
+      "left": ((w - cw)/2) + "px",
+      "top": ((h - ch)/2) + "px"
+    });
+  }
 }
 </script>
