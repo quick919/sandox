@@ -18,6 +18,16 @@ configure do
   set :items, DB[:items]
 end
 
+helpers do
+  def output_article
+    file_data = nil
+    File.open('views/article.erb') do |file|
+      file_data = file.read
+    end
+    ERB.new(file_data).result(binding)
+  end
+end
+
 get '/' do
   @arr = settings.items.order(:create_date).all
   erb :index
@@ -28,11 +38,7 @@ post '/form' do
   settings.items.insert(data)
   arr = settings.items.order(:create_date).all
   @arr = arr
-  file_data = nil
-  File.open('views/article.erb') do |file|
-    file_data = file.read
-  end
-  ERB.new(file_data).result(binding)
+  output_article
 end
 
 post '/item/delete' do
@@ -41,11 +47,7 @@ post '/item/delete' do
   status 200
   arr = settings.items.order(:create_date).all
   @arr = arr
-  file_data = nil
-  File.open('views/article.erb') do |file|
-    file_data = file.read
-  end
-  ERB.new(file_data).result(binding)
+  output_article
 end
 
 post '/item/edit' do
@@ -55,9 +57,5 @@ post '/item/edit' do
   status 200
   arr = settings.items.order(:create_date).all
   @arr = arr
-  file_data = nil
-  File.open('views/article.erb') do |file|
-    file_data = file.read
-  end
-  ERB.new(file_data).result(binding)
+  output_article
 end
