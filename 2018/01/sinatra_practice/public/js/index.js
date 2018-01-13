@@ -1,7 +1,7 @@
 $(function() {
   $("form").submit(function(e) {
     e.preventDefault();
-    var requrest = $.ajax({
+    const requrest = $.ajax({
       type: "POST",
       url: "/item/create",
       dataType: "text",
@@ -20,7 +20,7 @@ $(function() {
 });
 
 function deleteItem(id) {
-  var requrest = $.ajax({
+  const requrest = $.ajax({
     type: "POST",
     url: "/item/delete",
     dataType: "text",
@@ -38,7 +38,7 @@ function deleteItem(id) {
 function editItem(id, text) {
   showModel();
   $("#editBtn").on("click", function() {
-    var requrest = $.ajax({
+    const requrest = $.ajax({
       type: "POST",
       url: "/item/edit",
       dataType: "text",
@@ -67,11 +67,11 @@ function showModel() {
 
   $(window).resize(modalResize);
   function modalResize() {
-    var w = $(window).width();
-    var h = $(window).height();
+    const w = $(window).width();
+    const h = $(window).height();
 
-    var cw = $("#modal").outerWidth();
-    var ch = $("#modal").outerHeight();
+    const cw = $("#modal").outerWidth();
+    const ch = $("#modal").outerHeight();
 
     $("#modal").css({
       left: (w - cw) / 2 + "px",
