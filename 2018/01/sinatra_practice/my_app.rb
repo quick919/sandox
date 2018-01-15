@@ -38,7 +38,7 @@ post '/item/create' do
   now = Time.now
   data = {id: SecureRandom.uuid, text: params[:form], create_date: now, update_date: now}
   settings.items.insert(data)
-  arr = settings.items.order(:create_date).all
+  arr = settings.items.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end
@@ -47,7 +47,7 @@ post '/item/delete' do
   id = params[:id]
   settings.items.where({id: id}).delete
   status 200
-  arr = settings.items.order(:create_date).all
+  arr = settings.items.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end
@@ -57,7 +57,7 @@ post '/item/edit' do
   text = params[:text]
   settings.items.where({id: id}).update({text: text, update_date: Time.now})
   status 200
-  arr = settings.items.order(:create_date).all
+  arr = settings.items.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end
