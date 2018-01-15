@@ -57,6 +57,12 @@ function editItem(id, text) {
       });
     $("#textarea").val("");
   });
+
+  $("#cancelBtn").on("click", function() {
+    $("#modal, #modalOverlay").fadeOut("slow", function() {
+      $("#modalOverlay").remove();
+    });
+  });
 }
 
 function showModel() {
