@@ -12,6 +12,7 @@ configure do
       unrestrict_primary_key :id
       String :text
       DateTime :create_date
+      DateTime :update_date
      end
   end
 
@@ -34,7 +35,8 @@ get '/' do
 end
 
 post '/item/create' do
-  data = {id: SecureRandom.uuid, text: params[:form], create_date: Time.now}
+  now = Time.now
+  data = {id: SecureRandom.uuid, text: params[:form], create_date: now, update_date: now}
   settings.items.insert(data)
   arr = settings.items.order(:create_date).all
   @arr = arr
@@ -53,7 +55,7 @@ end
 post '/item/edit' do
   id = params[:id]
   text = params[:text]
-  settings.items.where({id: id}).update({text: text})
+  settings.items.where({id: id}).update({text: text, update_date: Time.now})
   status 200
   arr = settings.items.order(:create_date).all
   @arr = arr
