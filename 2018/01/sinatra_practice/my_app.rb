@@ -6,16 +6,7 @@ require 'securerandom'
 require 'erb'
 
 configure do
-  DB = Sequel.sqlite('databasepath',{})
-  unless DB.table_exists?(:items)  
-    DB.create_table :items do
-      unrestrict_primary_key :id
-      String :text
-      DateTime :create_date
-      DateTime :update_date
-     end
-  end
-
+  DB = Sequel.sqlite('db/article.db',{})
   set :items, DB[:items]
 end
 
