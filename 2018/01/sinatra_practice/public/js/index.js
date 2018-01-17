@@ -5,7 +5,7 @@ $(function() {
       type: "POST",
       url: "/item/create",
       dataType: "text",
-      data: { form: $("#textarea").val() }
+      data: { form: $("#textarea").val(), tags: $("#tags").val() }
     });
 
     requrest

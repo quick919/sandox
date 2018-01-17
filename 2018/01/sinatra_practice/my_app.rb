@@ -8,6 +8,7 @@ require 'erb'
 configure do
   DB = Sequel.sqlite('db/article.db',{})
   set :items, DB[:items]
+  set :tag, DB[:tag]
 end
 
 helpers do
@@ -29,6 +30,9 @@ post '/item/create' do
   now = Time.now
   data = {id: SecureRandom.uuid, text: params[:form], create_date: now, update_date: now}
   settings.items.insert(data)
+  params[:tags].split(",").each do |tag| 
+    settings.tag.insert({name: tag})
+  end
   arr = settings.items.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article

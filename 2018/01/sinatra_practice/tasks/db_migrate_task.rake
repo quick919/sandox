@@ -16,6 +16,14 @@ namespace :db_migrate_task do
         DateTime :update_date
       end
     end
+
+    unless DB.table_exists?(:tag)  
+      DB.create_table :tag do
+        primary_key :id
+        String :name
+      end
+    end
+
     puts 'create db!!'
   end
 end
