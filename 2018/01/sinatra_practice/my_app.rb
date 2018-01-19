@@ -6,9 +6,10 @@ require 'securerandom'
 require 'erb'
 
 configure do
-  DB = Sequel.sqlite('db/article.db',{})
-  set :items, DB[:items]
+  DB = Sequel.sqlite('db/journal.db',{})
+  set :article, DB[:article]
   set :tag, DB[:tag]
+  set :article_tags, DB[:article_tags]
 end
 
 helpers do
@@ -22,37 +23,40 @@ helpers do
 end
 
 get '/' do
-  @arr = settings.items.order(:create_date).all
+  @arr = settings.article.order(:create_date).all
   erb :index
 end
 
-post '/item/create' do
+post '/article/create' do
   now = Time.now
-  data = {id: SecureRandom.uuid, text: params[:form], create_date: now, update_date: now}
-  settings.items.insert(data)
-  params[:tags].split(",").each do |tag| 
-    settings.tag.insert({name: tag})
+  article_id = SecureRandom.uuid
+  data = {article_id: article_id, text: params[:form], create_date: now, update_date: now}
+  settings.article.insert(data)
+  params[:tags].split(",").each do |tag|
+    tag_id = SecureRandom.uuid
+    settings.tag.insert({tag_id: tag_id, name: tag})
+    settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
   end
-  arr = settings.items.order(Sequel.desc(:update_date)).all
+  arr = settings.article.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end
 
-post '/item/delete' do
+post '/article/delete' do
   id = params[:id]
-  settings.items.where({id: id}).delete
+  settings.article.where({id: id}).delete
   status 200
-  arr = settings.items.order(Sequel.desc(:update_date)).all
+  arr = settings.article.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end
 
-post '/item/edit' do
+post '/article/edit' do
   id = params[:id]
   text = params[:text]
-  settings.items.where({id: id}).update({text: text, update_date: Time.now})
+  settings.article.where({id: id}).update({text: text, update_date: Time.now})
   status 200
-  arr = settings.items.order(Sequel.desc(:update_date)).all
+  arr = settings.article.order(Sequel.desc(:update_date)).all
   @arr = arr
   output_article
 end

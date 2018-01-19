@@ -3,7 +3,7 @@ $(function() {
     e.preventDefault();
     const requrest = $.ajax({
       type: "POST",
-      url: "/item/create",
+      url: "/article/create",
       dataType: "text",
       data: { form: $("#textarea").val(), tags: $("#tags").val() }
     });
@@ -22,7 +22,7 @@ $(function() {
 function deleteItem(id) {
   const requrest = $.ajax({
     type: "POST",
-    url: "/item/delete",
+    url: "/article/delete",
     dataType: "text",
     data: { id: id }
   });
@@ -40,7 +40,7 @@ function editItem(id, text) {
   $("#editBtn").on("click", function() {
     const requrest = $.ajax({
       type: "POST",
-      url: "/item/edit",
+      url: "/article/edit",
       dataType: "text",
       data: { id: id, text: $("#editText").val() }
     });
