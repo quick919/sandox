@@ -62,11 +62,20 @@ post '/article/create' do
 end
 
 post '/article/delete' do
-  id = params[:id]
-  settings.article.where({id: id}).delete
+  article_id = params[:id]
+  article_tags = settings.article_tags.where({article_id: article_id}).all
+  article_tags.each do |article_tag|
+    article_id = article_tag[:article_id]
+    tag_id = article_tag[:tag_id]
+    settings.article_tags.where({article_id: article_id, tag_id: tag_id}).delete
+    settings.tag.where({tag_id: tag_id}).delete
+  end
+  settings.article.where({article_id: article_id}).delete
   status 200
   arr = settings.article.order(Sequel.desc(:update_date)).all
-  @arr = arr
+  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
+  @merged_tag = merge_tag(article_tags)
+  @articles = arr
   output_article
 end
 
