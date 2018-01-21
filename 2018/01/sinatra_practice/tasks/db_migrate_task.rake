@@ -10,25 +10,17 @@ namespace :db_migrate_task do
     DB = Sequel.sqlite('db/journal.db',{})
     unless DB.table_exists?(:article)  
       DB.create_table :article do
-        unrestrict_primary_key :article_id
+        primary_key :article_id
         String :text
         DateTime :create_date
         DateTime :update_date
-      end
-
-      DB.alter_table(:article) do
-        add_primary_key [:article_id]
       end
     end
 
     unless DB.table_exists?(:tag)  
       DB.create_table :tag do
-        unrestrict_primary_key :tag_id
+        primary_key :tag_id
         String :name
-      end
-
-      DB.alter_table(:tag) do
-        add_primary_key [:tag_id]
       end
     end
 

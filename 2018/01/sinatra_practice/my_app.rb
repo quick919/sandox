@@ -20,25 +20,44 @@ helpers do
     end
     ERB.new(file_data).result(binding)
   end
+
+  def merge_tag(article_tags)
+    merged_tags = {}
+    article_tags.each do |article_tag|
+      id = article_tag[:article_id]
+      if merged_tags.include?(id)
+        tags = merged_tags[id]
+        tags.push(article_tag[:name])
+        merged_tags[id] = tags
+      else
+        tags = []
+        tags.push(article_tag[:name])
+        merged_tags[id] = tags
+      end
+    end
+    return merged_tags
+  end
 end
 
 get '/' do
-  @arr = settings.article.order(:create_date).all
+  @articles = settings.article.order(:create_date).all
+  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
+  @merged_tag = merge_tag(article_tags)
   erb :index
 end
 
 post '/article/create' do
   now = Time.now
-  article_id = SecureRandom.uuid
-  data = {article_id: article_id, text: params[:form], create_date: now, update_date: now}
-  settings.article.insert(data)
+  data = { text: params[:form], create_date: now, update_date: now}
+  article_id = settings.article.insert(data)
   params[:tags].split(",").each do |tag|
-    tag_id = SecureRandom.uuid
-    settings.tag.insert({tag_id: tag_id, name: tag})
+    tag_id = settings.tag.insert({name: tag})
     settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
   end
   arr = settings.article.order(Sequel.desc(:update_date)).all
-  @arr = arr
+  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
+  @merged_tag = merge_tag(article_tags)
+  @articles = arr
   output_article
 end
 

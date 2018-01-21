@@ -1,4 +1,4 @@
-<% @arr.each do |item| %>
+<% @articles.each do |item| %>
   <article>
     <header>
       <p>
@@ -7,7 +7,13 @@
         <input type="button" value="delete" onClick="deleteItem('<%= item[:id] %>')">
       </p>
     </header>
-    <p><%= item[:text] %></p>  
+    <p><%= item[:text] %></p>
+    <p>
+    <% id = item[:article_id] %>
+    <% @merged_tag[id].each do |tag| %>
+      <%= tag %>
+    <% end %>
+    </p>
   </article>
 <% end %>
 
