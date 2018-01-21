@@ -80,11 +80,13 @@ post '/article/delete' do
 end
 
 post '/article/edit' do
-  id = params[:id]
+  article_id = params[:id]
   text = params[:text]
-  settings.article.where({id: id}).update({text: text, update_date: Time.now})
+  settings.article.where({article_id: article_id}).update({text: text, update_date: Time.now})
   status 200
   arr = settings.article.order(Sequel.desc(:update_date)).all
-  @arr = arr
+  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
+  @merged_tag = merge_tag(article_tags)
+  @articles = arr
   output_article
 end

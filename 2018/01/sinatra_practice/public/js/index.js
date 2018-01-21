@@ -37,6 +37,7 @@ function deleteItem(id) {
 }
 function editItem(id, text) {
   showModel();
+  $("#editText").val(text);
   $("#editBtn").on("click", function() {
     const requrest = $.ajax({
       type: "POST",
