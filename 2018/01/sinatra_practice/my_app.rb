@@ -7,6 +7,7 @@ require 'erb'
 
 configure do
   DB = Sequel.sqlite('db/journal.db',{})
+  set :db, DB
   set :article, DB[:article]
   set :tag, DB[:tag]
   set :article_tags, DB[:article_tags]
@@ -49,10 +50,12 @@ end
 post '/article/create' do
   now = Time.now
   data = { text: params[:form], create_date: now, update_date: now}
-  article_id = settings.article.insert(data)
-  params[:tags].split(",").each do |tag|
-    tag_id = settings.tag.insert({name: tag})
-    settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
+  settings.db.transaction do
+    article_id = settings.article.insert(data)
+    params[:tags].split(",").each do |tag|
+      tag_id = settings.tag.insert({name: tag})
+      settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
+    end
   end
   arr = settings.article.order(Sequel.desc(:update_date)).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
@@ -64,13 +67,15 @@ end
 post '/article/delete' do
   article_id = params[:id]
   article_tags = settings.article_tags.where({article_id: article_id}).all
-  article_tags.each do |article_tag|
-    article_id = article_tag[:article_id]
-    tag_id = article_tag[:tag_id]
-    settings.article_tags.where({article_id: article_id, tag_id: tag_id}).delete
-    settings.tag.where({tag_id: tag_id}).delete
+  settings.db.transaction do
+    article_tags.each do |article_tag|
+      article_id = article_tag[:article_id]
+      tag_id = article_tag[:tag_id]
+      settings.article_tags.where({article_id: article_id, tag_id: tag_id}).delete
+      settings.tag.where({tag_id: tag_id}).delete
+    end
+    settings.article.where({article_id: article_id}).delete
   end
-  settings.article.where({article_id: article_id}).delete
   status 200
   arr = settings.article.order(Sequel.desc(:update_date)).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
@@ -82,7 +87,9 @@ end
 post '/article/edit' do
   article_id = params[:id]
   text = params[:text]
-  settings.article.where({article_id: article_id}).update({text: text, update_date: Time.now})
+  settings.db.transaction do
+    settings.article.where({article_id: article_id}).update({text: text, update_date: Time.now})
+  end
   status 200
   arr = settings.article.order(Sequel.desc(:update_date)).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
