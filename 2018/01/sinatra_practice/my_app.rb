@@ -78,7 +78,6 @@ post '/article/delete' do
       article_id = article_tag[:article_id]
       tag_id = article_tag[:tag_id]
       settings.article_tags.where({article_id: article_id, tag_id: tag_id}).delete
-      settings.tag.where({tag_id: tag_id}).delete
     end
     settings.article.where({article_id: article_id}).delete
   end
