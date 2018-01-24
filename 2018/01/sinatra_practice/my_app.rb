@@ -53,7 +53,13 @@ post '/article/create' do
   settings.db.transaction do
     article_id = settings.article.insert(data)
     params[:tags].split(",").each do |tag|
-      tag_id = settings.tag.insert({name: tag})
+      tag_id = ""
+      query = settings.tag.where({name: tag})
+      if query.count > 0
+        tag_id = query.first[:tag_id]
+      else
+        tag_id = settings.tag.insert({name: tag})
+      end
       settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
     end
   end
