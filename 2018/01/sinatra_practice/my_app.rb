@@ -11,6 +11,11 @@ configure do
   set :article, DB[:article]
   set :tag, DB[:tag]
   set :article_tags, DB[:article_tags]
+  log_dir = "log"
+  FileUtils.mkdir(log_dir) unless FileTest.exist?(log_dir)
+  file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+  file.sync = true
+  use Rack::CommonLogger, file
 end
 
 helpers do
