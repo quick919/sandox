@@ -3,17 +3,16 @@
     <header>
       <p>
         <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
-        <input type="button" value="edit" onClick="editItem('<%= item[:article_id] %>','<%= item[:text] %>')">
-        <input type="button" value="delete" onClick="deleteItem('<%= item[:article_id] %>')">  
+        <input type="button" class="btn" value="edit" onClick="editItem('<%= item[:article_id] %>','<%= item[:text] %>')">
+        <input type="button" class="btn" value="delete" onClick="deleteItem('<%= item[:article_id] %>')">  
       </p>
     </header>
-    <p><%= item[:text] %></p>
-    <p>
+    <p><span class="article"><%= item[:text] %></span></p>
+
     <% id = item[:article_id] %>
     <% @merged_tag[id].each do |tag| %>
-      <%= tag %>
+      <span class="tag"><%= tag %></span>
     <% end %>
-    </p>
   </article>
 <% end %>
 
