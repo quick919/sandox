@@ -61,3 +61,16 @@ textarea {
 #editor {
   display: flex;
 }
+.article-list {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.article-box {
+  padding-left: 60px;
+}
+
+.form-parts {
+  padding-top: 10px;
+}

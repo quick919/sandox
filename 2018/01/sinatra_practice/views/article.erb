@@ -1,5 +1,6 @@
 <% @articles.each do |item| %>
   <article>
+    <div class="article-box">
     <header>
       <p>
         <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
@@ -13,6 +14,7 @@
     <% @merged_tag[id].each do |tag| %>
       <span class="tag"><%= tag %></span>
     <% end %>
+    </div>
   </article>
 <% end %>
 

@@ -7,13 +7,15 @@
   <form method="POST" action="">
 <textarea id="textarea" name="form" rows="10" cols="40">
 </textarea>
-    <div>
+    <div class="form-parts">
       <input id="tags" type="text" size="30" placeholder="enter tags separated by commas.">
+    </div>
+    <div class="form-parts">
       <input id="submit" type="submit" class="btn" value="submit">
     </div>
   </form>
 
-  <div>
+  <div class="article-list">
     <main id="result">
       <%= erb :article %>
     </main>
