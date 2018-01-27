@@ -8,7 +8,7 @@
         <input type="button" class="btn" value="delete" onClick="deleteItem('<%= item[:article_id] %>')">  
       </p>
     </header>
-    <p><span class="article"><%= item[:text] %></span></p>
+    <pre><span class="article"><%= item[:text] %></span></pre>
     <% id = item[:article_id] %>
     <% unless @merged_tag[id].nil? %>
       <% @merged_tag[id].each do |tag| %>
