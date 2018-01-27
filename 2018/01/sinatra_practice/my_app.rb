@@ -46,7 +46,7 @@ helpers do
 end
 
 get '/' do
-  @articles = settings.article.order(:create_date).all
+  @articles = settings.article.order(Sequel.desc(:update_date)).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
   erb :index
