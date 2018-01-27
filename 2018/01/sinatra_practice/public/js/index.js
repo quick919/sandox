@@ -36,9 +36,9 @@ function deleteItem(id) {
       console.log("error");
     });
 }
-function editItem(id, text) {
+function editItem(id) {
   showModel();
-  $("#editText").val(text);
+  $("#editText").val(jQuery("#" + id).text());
   $("#editBtn").on("click", function() {
     const requrest = $.ajax({
       type: "POST",
