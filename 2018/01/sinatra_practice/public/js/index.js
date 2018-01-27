@@ -12,6 +12,7 @@ $(function() {
       .done(function(data) {
         jQuery("#result").html(data);
         $("#textarea").val("");
+        $("#tags").val("");
       })
       .fail(function(e) {
         console.log("error");
