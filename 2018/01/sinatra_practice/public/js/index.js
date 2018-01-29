@@ -68,7 +68,7 @@ function editItem(id) {
 }
 
 function showModel() {
-  $("body").append('<div id="modalOverlay" class="modal_overlay"></div>');
+  $("body").append('<div id="modalOverlay" class="modal-overlay"></div>');
   modalResize();
 
   $("#modalOverlay,#modal").fadeIn("slow");
