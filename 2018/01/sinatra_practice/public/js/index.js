@@ -39,12 +39,13 @@ function deleteItem(id) {
 function editItem(id) {
   showModel();
   $("#editText").val(jQuery("#" + id).text());
+  $("#editTag").val(jQuery("#tag" + id).data("tag"));
   $("#editBtn").on("click", function() {
     const requrest = $.ajax({
       type: "POST",
       url: "/article/edit",
       dataType: "text",
-      data: { id: id, text: $("#editText").val() }
+      data: { id: id, text: $("#editText").val(), tags: $("#editTag").val() }
     });
 
     requrest

@@ -57,16 +57,7 @@ post '/article/create' do
   data = { text: params[:form], create_date: now, update_date: now}
   settings.db.transaction do
     article_id = settings.article.insert(data)
-    params[:tags].split(",").each do |tag|
-      tag_id = ""
-      query = settings.tag.where({name: tag})
-      if query.count > 0
-        tag_id = query.first[:tag_id]
-      else
-        tag_id = settings.tag.insert({name: tag})
-      end
-      settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
-    end
+    create_article_tag(params[:tags], article_id)
   end
   arr = settings.article.order(Sequel.desc(:update_date)).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
@@ -99,6 +90,8 @@ post '/article/edit' do
   text = params[:text]
   settings.db.transaction do
     settings.article.where({article_id: article_id}).update({text: text, update_date: Time.now})
+    settings.article_tags.where({article_id: article_id}).delete
+    create_article_tag(params[:tags], article_id)
   end
   status 200
   arr = settings.article.order(Sequel.desc(:update_date)).all
@@ -106,4 +99,19 @@ post '/article/edit' do
   @merged_tag = merge_tag(article_tags)
   @articles = arr
   output_article
+end
+
+private
+
+def create_article_tag(tags, article_id)
+  tags.split(",").each do |tag|
+    tag_id = ""
+    query = settings.tag.where({name: tag})
+    if query.count > 0
+      tag_id = query.first[:tag_id]
+    else
+      tag_id = settings.tag.insert({name: tag})
+    end
+    settings.article_tags.insert({article_id: article_id, tag_id: tag_id})
+  end
 end

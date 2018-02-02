@@ -14,6 +14,7 @@
       <% @merged_tag[id].each do |tag| %>
       <span class="tag"><%= tag %></span>
       <% end %>
+      <input id="tag<%= id %>" type="hidden" data-tag="<%= @merged_tag[id].join(",") %>">
     <% end %> 
     </div>
   </article>
@@ -22,6 +23,9 @@
 <div id="modal" class="modal">
   <div id="modalContent" class="modal-content">
 <textarea id="editText"></textarea>
+  <div class="form-parts">
+    <input id="editTag" type="text" size="30" placeholder="enter tags separated by commas.">
+  </div>
   <div class="modal-btn-box">
     <input id="editBtn" class="btn" type="button" value="ok">
     <input id="cancelBtn" class="btn" type="button" value="cancel">
