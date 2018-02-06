@@ -16,6 +16,7 @@ configure do
   file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
   file.sync = true
   use Rack::CommonLogger, file
+  set :per_page, 10
 end
 
 helpers do
@@ -46,7 +47,13 @@ helpers do
 end
 
 get '/' do
-  @articles = settings.article.order(Sequel.desc(:update_date)).all
+  page = 1
+  page = params[:page].to_i unless params[:page].nil?
+  offset = settings.per_page * (page -1)
+  article_count = settings.article.count
+  @pages = article_count / settings.per_page
+  @current_page = page
+  @articles = settings.article.order(Sequel.desc(:update_date)).limit(10, offset).all
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
   erb :index
@@ -99,6 +106,11 @@ post '/article/edit' do
   @merged_tag = merge_tag(article_tags)
   @articles = arr
   output_article
+end
+
+get '/page/:number' do
+  page = params[:number]
+  redirect to('/?page=' + page)
 end
 
 private

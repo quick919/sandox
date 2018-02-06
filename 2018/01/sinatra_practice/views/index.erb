@@ -20,4 +20,8 @@
       <%= erb :article %>
     </main>
   </div>
+  <% @pages.times do |i| %>
+  <% page = i + 1 %>
+   <a href="/page/<%= page %>"><%= page %></a>
+  <% end %>
 </div>
