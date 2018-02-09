@@ -16,12 +16,16 @@
   </form>
 
   <div class="article-list">
+
     <main id="result">
       <%= erb :article %>
     </main>
+    
+    <div class="pagination-box">
+      <% @pages.times do |i| %>
+        <% page = i + 1 %>
+            <a class="pagination" href="/page/<%= page %>"><%= page %></a>
+        <% end %>
+    </div>
   </div>
-  <% @pages.times do |i| %>
-  <% page = i + 1 %>
-   <a href="/page/<%= page %>"><%= page %></a>
-  <% end %>
 </div>

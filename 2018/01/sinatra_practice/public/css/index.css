@@ -67,9 +67,26 @@ textarea {
   display: flex;
 }
 .article-list {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 95%;
   width: 100%;
   overflow-y: scroll;
+}
+
+.pagination-box {
+  text-align: center;
+  margin-top: 20px;
+}
+.pagination {
+  padding: 10 15px;
+  color: #000000;
+  background: rgb(190, 190, 190);
+  text-decoration: none;
+}
+.pagination:hover {
+  background: rgb(65, 135, 179);
+  color: #fff;
 }
 
 .article-box {
