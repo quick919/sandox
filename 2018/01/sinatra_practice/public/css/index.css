@@ -78,13 +78,17 @@ textarea {
   text-align: center;
   margin-top: 20px;
 }
-.pagination {
+
+.pagination-box span,
+.pagination-box a {
   padding: 10 15px;
   color: #000000;
+}
+.pagination-box a {
   background: rgb(190, 190, 190);
   text-decoration: none;
 }
-.pagination:hover {
+.pagination-box a:hover {
   background: rgb(65, 135, 179);
   color: #fff;
 }
