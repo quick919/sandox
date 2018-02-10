@@ -88,3 +88,21 @@ function showModel() {
     });
   }
 }
+
+function getPage(pageNumber) {
+  event.preventDefault();
+  const requrest = $.ajax({
+    type: "GET",
+    url: "/page/" + pageNumber,
+    dataType: "text",
+    data: { pageNumber: pageNumber }
+  });
+
+  requrest
+    .done(function(data) {
+      jQuery("#result").html(data);
+    })
+    .fail(function(e) {
+      console.log("error");
+    });
+}

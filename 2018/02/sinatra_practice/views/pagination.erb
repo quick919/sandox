@@ -3,6 +3,6 @@
   <% if @current_page == page %>
     <span><%= page %></span>
   <% else %>
-    <a href="/page/<%= page %>"><%= page %></a>
+    <a href="javascript:void(0)" onClick="getPage('<%= page %>')"><%= page %></a>
   <% end %>
 <% end %>
