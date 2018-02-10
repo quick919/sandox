@@ -1,0 +1,8 @@
+<% @pages.times do |i| %>
+  <% page = i + 1 %>
+  <% if @current_page == page %>
+    <span><%= page %></span>
+  <% else %>
+    <a href="/page/<%= page %>"><%= page %></a>
+  <% end %>
+<% end %>
