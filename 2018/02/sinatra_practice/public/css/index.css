@@ -1,0 +1,102 @@
+.modal {
+  width: 500px;
+  height: 390px;
+  margin: 0;
+  padding: 10px 20px;
+  border: 2px solid #aaa;
+  background: #fff;
+  position: fixed;
+  display: none;
+  z-index: 2;
+}
+.modal-overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.modal-content {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.modal-btn-box {
+  text-align: center;
+  padding-top: 10px;
+}
+
+span.tag {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #009bfc;
+  padding: 1px 5px 0;
+  background-color: rgb(168, 233, 245);
+}
+
+.btn {
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #000000;
+  padding: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+span.article {
+  font-size: 20px;
+}
+input[type="text"] {
+  font-size: 20px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding: 3px;
+}
+textarea {
+  width: 400px;
+  height: 300px;
+}
+
+#editor {
+  display: flex;
+}
+.article-list {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.pagination-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination-box span,
+.pagination-box a {
+  padding: 10 15px;
+  color: #000000;
+}
+.pagination-box a {
+  background: rgb(190, 190, 190);
+  text-decoration: none;
+}
+.pagination-box a:hover {
+  background: rgb(65, 135, 179);
+  color: #fff;
+}
+
+.article-box {
+  padding-left: 60px;
+}
+
+.form-parts {
+  padding-top: 10px;
+}

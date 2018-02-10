@@ -1,0 +1,34 @@
+<% @articles.each do |item| %>
+  <article>
+    <div class="article-box">
+    <header>
+      <p>
+        <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
+        <input type="button" class="btn" value="edit" onClick="editItem('<%= item[:article_id] %>')">
+        <input type="button" class="btn" value="delete" onClick="deleteItem('<%= item[:article_id] %>')">  
+      </p>
+    </header>
+    <pre><span id="<%= item[:article_id] %>" class="article"><%= item[:text] %></span></pre>
+    <% id = item[:article_id] %>
+    <% unless @merged_tag[id].nil? %>
+      <% @merged_tag[id].each do |tag| %>
+      <span class="tag"><%= tag %></span>
+      <% end %>
+      <input id="tag<%= id %>" type="hidden" data-tag="<%= @merged_tag[id].join(",") %>">
+    <% end %> 
+    </div>
+  </article>
+<% end %>
+
+<div id="modal" class="modal">
+  <div id="modalContent" class="modal-content">
+<textarea id="editText"></textarea>
+  <div class="form-parts">
+    <input id="editTag" type="text" size="30" placeholder="enter tags separated by commas.">
+  </div>
+  <div class="modal-btn-box">
+    <input id="editBtn" class="btn" type="button" value="ok">
+    <input id="cancelBtn" class="btn" type="button" value="cancel">
+  </div>
+  </div>
+</div>
