@@ -65,10 +65,12 @@ post '/article/create' do
     article_id = settings.article.insert(data)
     create_article_tag(params[:tags], article_id)
   end
-  arr = settings.article.order(Sequel.desc(:update_date)).all
+  page = 1
+  @current_page = page
+  @articles = Article.fetch_articles(settings.per_page, page)
+  @pages = Article.fetch_number_of_pages(settings.per_page)  
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
-  @articles = arr
   output_article
 end
 
@@ -84,10 +86,12 @@ post '/article/delete' do
     settings.article.where({article_id: article_id}).delete
   end
   status 200
-  arr = settings.article.order(Sequel.desc(:update_date)).all
+  page = 1
+  @current_page = page
+  @articles = Article.fetch_articles(settings.per_page, page)
+  @pages = Article.fetch_number_of_pages(settings.per_page) 
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
-  @articles = arr
   output_article
 end
 
@@ -100,10 +104,12 @@ post '/article/edit' do
     create_article_tag(params[:tags], article_id)
   end
   status 200
-  arr = settings.article.order(Sequel.desc(:update_date)).all
+  page = 1
+  @current_page = page
+  @articles = Article.fetch_articles(settings.per_page, page)
+  @pages = Article.fetch_number_of_pages(settings.per_page)
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
-  @articles = arr
   output_article
 end
 
