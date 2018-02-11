@@ -4,6 +4,7 @@ require 'json'
 require 'sequel'
 require 'securerandom'
 require 'erb'
+require_relative 'models/article'
 
 configure do
   DB = Sequel.sqlite('db/journal.db',{})
@@ -49,11 +50,9 @@ end
 get '/' do
   page = 1
   page = params[:page].to_i unless params[:page].nil?
-  offset = settings.per_page * (page -1)
-  article_count = settings.article.count
-  @pages = article_count / settings.per_page
   @current_page = page
-  @articles = settings.article.order(Sequel.desc(:update_date)).limit(10, offset).all
+  @articles = Article.fetch_articles(settings.per_page, page)
+  @pages = Article.fetch_number_of_pages(settings.per_page)  
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
   erb :index
@@ -111,11 +110,9 @@ end
 get '/page/:number' do
   page_number = 1
   page_number = params[:number].to_i unless params[:number].nil?
-  offset = settings.per_page * (page_number -1)
-  article_count = settings.article.count
-  @pages = article_count / settings.per_page
   @current_page = page_number
-  @articles = settings.article.order(Sequel.desc(:update_date)).limit(10, offset).all
+  @articles = Article.fetch_articles(settings.per_page, page_number)
+  @pages = Article.fetch_number_of_pages(settings.per_page)  
   article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
   @merged_tag = merge_tag(article_tags)
   output_article
