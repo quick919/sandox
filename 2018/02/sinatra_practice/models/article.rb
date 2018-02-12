@@ -2,6 +2,9 @@ require 'sequel'
 
 DB = Sequel.connect('sqlite://db/journal.db')
 class Article < Sequel::Model(:article)
+  many_to_many :tag, left_key: :article_id, right_key: :tag_id,
+    join_table: :article_tags
+
   dataset_module do
     def fetch_articles(per_page, page)
       offset = per_page * (page - 1)
