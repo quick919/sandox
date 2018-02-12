@@ -1,15 +1,15 @@
-<% @articles.each do |item| %>
+<% @articles.each do |article| %>
   <article>
     <div class="article-box">
     <header>
       <p>
-        <%= item[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
-        <input type="button" class="btn" value="edit" onClick="editItem('<%= item[:article_id] %>')">
-        <input type="button" class="btn" value="delete" onClick="deleteItem('<%= item[:article_id] %>')">  
+        <%= article[:create_date].strftime("%Y/%m/%d %H:%M:%S.%L") %>
+        <input type="button" class="btn" value="edit" onClick="editItem('<%= article[:article_id] %>')">
+        <input type="button" class="btn" value="delete" onClick="deleteItem('<%= article[:article_id] %>')">  
       </p>
     </header>
-    <pre><span id="<%= item[:article_id] %>" class="article"><%= item[:text] %></span></pre>
-    <% id = item[:article_id] %>
+    <pre><span id="<%= article[:article_id] %>" class="article"><%= article[:text] %></span></pre>
+    <% id = article[:article_id] %>
     <% unless @merged_tag[id].nil? %>
       <% @merged_tag[id].each do |tag| %>
       <span class="tag"><%= tag %></span>
