@@ -5,6 +5,7 @@ require 'sequel'
 require 'securerandom'
 require 'erb'
 require_relative 'models/article'
+require_relative 'models/tag'
 
 configure do
   DB = Sequel.sqlite('db/journal.db',{})
@@ -52,9 +53,7 @@ get '/' do
   page = params[:page].to_i unless params[:page].nil?
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
-  @pages = Article.fetch_number_of_pages(settings.per_page)  
-  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
-  @merged_tag = merge_tag(article_tags)
+  @pages = Article.fetch_number_of_pages(settings.per_page)
   erb :index
 end
 
@@ -68,9 +67,7 @@ post '/article/create' do
   page = 1
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
-  @pages = Article.fetch_number_of_pages(settings.per_page)  
-  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
-  @merged_tag = merge_tag(article_tags)
+  @pages = Article.fetch_number_of_pages(settings.per_page)
   output_article
 end
 
@@ -89,9 +86,7 @@ post '/article/delete' do
   page = 1
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
-  @pages = Article.fetch_number_of_pages(settings.per_page) 
-  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
-  @merged_tag = merge_tag(article_tags)
+  @pages = Article.fetch_number_of_pages(settings.per_page)
   output_article
 end
 
@@ -108,8 +103,6 @@ post '/article/edit' do
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
   @pages = Article.fetch_number_of_pages(settings.per_page)
-  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
-  @merged_tag = merge_tag(article_tags)
   output_article
 end
 
@@ -118,9 +111,7 @@ get '/page/:number' do
   page_number = params[:number].to_i unless params[:number].nil?
   @current_page = page_number
   @articles = Article.fetch_articles(settings.per_page, page_number)
-  @pages = Article.fetch_number_of_pages(settings.per_page)  
-  article_tags = settings.article_tags.left_join(:tag, :tag_id => :tag_id).all
-  @merged_tag = merge_tag(article_tags)
+  @pages = Article.fetch_number_of_pages(settings.per_page)
   output_article
 end
 

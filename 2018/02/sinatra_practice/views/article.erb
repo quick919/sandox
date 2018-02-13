@@ -10,11 +10,11 @@
     </header>
     <pre><span id="<%= article[:article_id] %>" class="article"><%= article[:text] %></span></pre>
     <% id = article[:article_id] %>
-    <% unless @merged_tag[id].nil? %>
-      <% @merged_tag[id].each do |tag| %>
-      <span class="tag"><%= tag %></span>
+    <% unless article.tag_dataset.empty? %>
+      <% article.tag_dataset.each do |tag| %>
+      <span class="tag"><%= tag.name %></span>
       <% end %>
-      <input id="tag<%= id %>" type="hidden" data-tag="<%= @merged_tag[id].join(",") %>">
+      <input id="tag<%= id %>" type="hidden" data-tag="<%= article.tag_dataset.map {|tag| tag.name }.join(',') %>">
     <% end %> 
     </div>
   </article>
