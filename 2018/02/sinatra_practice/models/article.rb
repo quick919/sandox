@@ -14,8 +14,26 @@ class Article < Sequel::Model(:article)
       all
     end
 
+    def fetch_search_articles(per_page, page, searchText)
+      offset = per_page * (page - 1)
+      select().
+      where(Sequel.lit('text LIKE ?', '%'+ searchText +'%')).
+      order(Sequel.desc(:update_date)).
+      limit(per_page, offset).
+      all
+    end
+
     def fetch_number_of_pages(per_page)
       select().count / per_page
+    end
+
+    def fetch_search_articles_count(per_page, page, searchText)
+      offset = per_page * (page - 1)
+      select()
+      where(Sequel.lit('text LIKE ?', '%'+ searchText +'%')).
+      order(Sequel.desc(:update_date)).
+      limit(per_page, offset).
+      count / per_page
     end
   end
 end

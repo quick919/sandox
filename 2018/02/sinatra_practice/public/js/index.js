@@ -1,5 +1,5 @@
 $(function() {
-  $("form").submit(function(e) {
+  $("#sendForm").submit(function(e) {
     e.preventDefault();
     const requrest = $.ajax({
       type: "POST",
@@ -96,6 +96,25 @@ function getPage(pageNumber) {
     url: "/page/" + pageNumber,
     dataType: "text",
     data: { pageNumber: pageNumber }
+  });
+
+  requrest
+    .done(function(data) {
+      jQuery("#result").html(data);
+    })
+    .fail(function(e) {
+      console.log("error");
+    });
+}
+
+function searchArticle() {
+  event.preventDefault();
+
+  const requrest = $.ajax({
+    type: "GET",
+    url: "/search",
+    dataType: "text",
+    data: { searchText: $("#searchText").val() }
   });
 
   requrest

@@ -115,6 +115,13 @@ get '/page/:number' do
   output_article
 end
 
+get '/search' do
+  @current_page = 1
+  @articles = Article.fetch_search_articles(settings.per_page, 1, params[:searchText])
+  @pages = Article.fetch_search_articles_count(settings.per_page, 1, params[:searchText])
+  output_article
+end
+
 private
 
 def create_article_tag(tags, article_id)

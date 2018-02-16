@@ -3,8 +3,17 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="/js/index.js"></script>
 
+<header>
+  <form>
+    <div>
+      <input id="searchText" type="text">
+      <input type="submit" class="btn" value="search" onClick="searchArticle()">
+    </div>
+  </form>
+</header>
+
 <div id="editor">
-  <form method="POST" action="">
+  <form id="sendForm" method="POST" action="">
 <textarea id="textarea" name="form" rows="10" cols="40">
 </textarea>
     <div class="form-parts">
@@ -16,11 +25,8 @@
   </form>
 
   <div class="article-list">
-
     <main id="result">
       <%= erb :article %>
     </main>
-
-    
   </div>
 </div>
