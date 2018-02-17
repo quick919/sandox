@@ -3,7 +3,7 @@ $(function() {
     e.preventDefault();
     const requrest = $.ajax({
       type: "POST",
-      url: "/article/create",
+      url: "/articles/create",
       dataType: "text",
       data: { form: $("#textarea").val(), tags: $("#tags").val() }
     });
@@ -23,7 +23,7 @@ $(function() {
 function deleteItem(id) {
   const requrest = $.ajax({
     type: "POST",
-    url: "/article/delete",
+    url: "/articles/delete",
     dataType: "text",
     data: { id: id }
   });
@@ -43,7 +43,7 @@ function editItem(id) {
   $("#editBtn").on("click", function() {
     const requrest = $.ajax({
       type: "POST",
-      url: "/article/edit",
+      url: "/articles/edit",
       dataType: "text",
       data: { id: id, text: $("#editText").val(), tags: $("#editTag").val() }
     });
@@ -93,9 +93,9 @@ function getPage(pageNumber) {
   event.preventDefault();
   const requrest = $.ajax({
     type: "GET",
-    url: "/page/" + pageNumber,
+    url: "articles",
     dataType: "text",
-    data: { pageNumber: pageNumber }
+    data: { page: pageNumber }
   });
 
   requrest

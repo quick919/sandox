@@ -48,16 +48,20 @@ helpers do
   end
 end
 
-get '/' do
+get '/articles' do
   page = 1
   page = params[:page].to_i unless params[:page].nil?
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
   @pages = Article.fetch_number_of_pages(settings.per_page)
-  erb :index
+  if params[:page].nil?
+    erb :index
+  else
+    output_article
+  end
 end
 
-post '/article/create' do
+post '/articles/create' do
   now = Time.now
   data = { text: params[:form], create_date: now, update_date: now}
   settings.db.transaction do
@@ -71,7 +75,7 @@ post '/article/create' do
   output_article
 end
 
-post '/article/delete' do
+post '/articles/delete' do
   article_id = params[:id]
   article_tags = settings.article_tags.where({article_id: article_id}).all
   settings.db.transaction do
@@ -90,7 +94,7 @@ post '/article/delete' do
   output_article
 end
 
-post '/article/edit' do
+post '/articles/edit' do
   article_id = params[:id]
   text = params[:text]
   settings.db.transaction do
@@ -102,15 +106,6 @@ post '/article/edit' do
   page = 1
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
-  @pages = Article.fetch_number_of_pages(settings.per_page)
-  output_article
-end
-
-get '/page/:number' do
-  page_number = 1
-  page_number = params[:number].to_i unless params[:number].nil?
-  @current_page = page_number
-  @articles = Article.fetch_articles(settings.per_page, page_number)
   @pages = Article.fetch_number_of_pages(settings.per_page)
   output_article
 end
