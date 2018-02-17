@@ -6,21 +6,20 @@ class Article < Sequel::Model(:article)
     join_table: :article_tags
 
   dataset_module do
-    def fetch_articles(per_page, page)
+    def fetch_articles(per_page, page, searchText = nil)
       offset = per_page * (page - 1)
-      select().
-      order(Sequel.desc(:update_date)).
-      limit(per_page, offset).
-      all
-    end
-
-    def fetch_search_articles(per_page, page, searchText)
-      offset = per_page * (page - 1)
-      select().
-      where(Sequel.lit('text LIKE ?', '%'+ searchText +'%')).
-      order(Sequel.desc(:update_date)).
-      limit(per_page, offset).
-      all
+      if searchText.nil?
+        select().
+        order(Sequel.desc(:update_date)).
+        limit(per_page, offset).
+        all
+      else
+        select().
+        where(Sequel.lit('text LIKE ?', '%'+ searchText +'%')).
+        order(Sequel.desc(:update_date)).
+        limit(per_page, offset).
+        all
+      end
     end
 
     def fetch_number_of_pages(per_page)

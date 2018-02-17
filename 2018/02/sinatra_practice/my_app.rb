@@ -117,7 +117,7 @@ end
 
 get '/search' do
   @current_page = 1
-  @articles = Article.fetch_search_articles(settings.per_page, 1, params[:searchText])
+  @articles = Article.fetch_articles(settings.per_page, 1, params[:searchText])
   @pages = Article.fetch_search_articles_count(settings.per_page, 1, params[:searchText])
   output_article
 end
