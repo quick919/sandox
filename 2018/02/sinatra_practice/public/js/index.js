@@ -115,9 +115,9 @@ function searchArticle() {
 
   const requrest = $.ajax({
     type: "GET",
-    url: "/search",
+    url: "/articles",
     dataType: "text",
-    data: { searchText: $("#searchText").val() }
+    data: { search: $("#searchText").val() }
   });
 
   requrest

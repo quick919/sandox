@@ -34,10 +34,11 @@ end
 get '/articles' do
   page = 1
   page = params[:page].to_i unless params[:page].nil?
+  search_text = params[:search]
   @current_page = page
-  @articles = Article.fetch_articles(settings.per_page, page)
-  @pages = Article.fetch_number_of_pages(settings.per_page)
-  if params[:page].nil?
+  @articles = Article.fetch_articles(settings.per_page, page, search_text)
+  @pages = Article.fetch_number_of_pages(settings.per_page, search_text)
+  if search_text.nil? && params[:page].nil?
     erb :index
   else
     output_article
@@ -90,13 +91,6 @@ post '/articles/edit' do
   @current_page = page
   @articles = Article.fetch_articles(settings.per_page, page)
   @pages = Article.fetch_number_of_pages(settings.per_page)
-  output_article
-end
-
-get '/search' do
-  @current_page = 1
-  @articles = Article.fetch_articles(settings.per_page, 1, params[:searchText])
-  @pages = Article.fetch_search_articles_count(settings.per_page, 1, params[:searchText])
   output_article
 end
 
