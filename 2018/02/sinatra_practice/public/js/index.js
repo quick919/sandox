@@ -97,10 +97,13 @@ function getPage(pageNumber) {
     dataType: "text",
     data: { page: pageNumber }
   });
-
+  var eventType = event.type;
   requrest
     .done(function(data) {
       jQuery("#result").html(data);
+      if (eventType == "click") {
+        history.pushState(pageNumber, "", "/articles?page=" + pageNumber);
+      }
     })
     .fail(function(e) {
       console.log("error");
@@ -125,3 +128,11 @@ function searchArticle() {
       console.log("error");
     });
 }
+
+$(window).on("popstate", function(event) {
+  var pageNumber = event.originalEvent.state;
+  if (pageNumber == null) {
+    pageNumber = 1;
+  }
+  getPage(pageNumber);
+});
