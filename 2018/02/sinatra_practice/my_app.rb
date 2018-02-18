@@ -29,23 +29,6 @@ helpers do
     end
     ERB.new(file_data).result(binding)
   end
-
-  def merge_tag(article_tags)
-    merged_tags = {}
-    article_tags.each do |article_tag|
-      id = article_tag[:article_id]
-      if merged_tags.include?(id)
-        tags = merged_tags[id]
-        tags.push(article_tag[:name])
-        merged_tags[id] = tags
-      else
-        tags = []
-        tags.push(article_tag[:name])
-        merged_tags[id] = tags
-      end
-    end
-    return merged_tags
-  end
 end
 
 get '/articles' do
