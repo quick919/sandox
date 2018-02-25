@@ -129,6 +129,27 @@ function searchArticle() {
     });
 }
 
+function output() {
+  const requrest = $.ajax({
+    type: "GET",
+    url: "/articles/output",
+    dataType: "text"
+  });
+  requrest
+    .done(function(data) {
+      var blob = new Blob([data], { type: "application/json" });
+      var fileName = "output.json";
+      var downloadURL = window.URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = downloadURL;
+      link.download = fileName;
+      link.click();
+      window.URL.revokeObjectURL(downloadURL); //close createObjectURL
+    })
+    .fail(function(e) {
+      console.log("error");
+    });
+}
 $(window).on("popstate", function(event) {
   var pageNumber = event.originalEvent.state;
   if (pageNumber == null) {

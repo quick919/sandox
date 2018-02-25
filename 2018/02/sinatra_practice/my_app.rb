@@ -94,6 +94,16 @@ post '/articles/edit' do
   output_article
 end
 
+get '/articles/output' do
+  @articles = Article.fetch_articles(settings.per_page, 1)
+  arr = []
+  @articles.each do |article|
+    #todo tags
+    arr.push(article.values)
+  end
+  arr.to_json
+end
+
 private
 
 def create_article_tag(tags, article_id)
