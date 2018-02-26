@@ -98,7 +98,12 @@ get '/articles/output' do
   @articles = Article.fetch_articles(settings.per_page, 1)
   arr = []
   @articles.each do |article|
-    #todo tags
+    tags = article.tag_dataset.all
+    tags_arr = []
+    unless tags.empty?
+      tags.map{|tag| tags_arr.push(tag.values) }
+    end
+    article.values[:tags] = tags_arr
     arr.push(article.values)
   end
   arr.to_json
