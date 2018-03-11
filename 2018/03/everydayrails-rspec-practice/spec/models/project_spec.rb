@@ -42,4 +42,30 @@ RSpec.describe Project, type: :model do
     )
     expect(other_project).to be_valid
   end
+
+  # たくさんのメモがついている
+  it "can have many notes" do
+    project = FactoryGirl.create(:project, :with_notes)
+    expect(project.notes.length).to eq 5
+  end
+
+  describe "late status" do
+    # 締切が過ぎていれば遅延している
+    it "is late when the due is past today" do
+      project = FactoryGirl.create(:project, :due_yesterday)
+      expect(project).to be_late
+    end
+
+    # 締切が今日ならスケジュールどおりである
+    it "is on time when the due date is today" do
+      project = FactoryGirl.create(:project, :due_today)
+      expect(project).to_not be_late
+    end
+
+    # 締切が未来ならスケジュールどおりである
+    it "is on time when the due date is in future" do
+      project = FactoryGirl.create(:project, :due_tomorrow)
+      expect(project).to_not be_late
+    end
+  end
 end
